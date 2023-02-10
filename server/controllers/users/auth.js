@@ -28,6 +28,7 @@ module.exports = (app) => {
 
       res.json({ message: "Register success" });
     } catch (err) {
+      console.log(err);
       res.status(401).json({ message: "Register fail" });
     }
   });

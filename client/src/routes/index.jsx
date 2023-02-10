@@ -9,7 +9,7 @@ import CreateServer from "../pages/CreateServer";
 import Server from "../pages/Server";
 import Page404 from "../pages/Page404";
 
-const index = ({ localUser, setUpdateApp }) => {
+const index = ({ localUser, setUpdateApp, socket }) => {
   return (
     <Routes>
       {localUser.loggedIn ? (
@@ -18,29 +18,51 @@ const index = ({ localUser, setUpdateApp }) => {
           <Route
             path="/signout"
             element={
-              <Signout localUser={localUser} setUpdateApp={setUpdateApp} />
+              <Signout
+                localUser={localUser}
+                socket={socket}
+                setUpdateApp={setUpdateApp}
+              />
             }
           />
           <Route
             path="/"
-            element={<Home localUser={localUser} setUpdateApp={setUpdateApp} />}
+            element={
+              <Home
+                localUser={localUser}
+                socket={socket}
+                setUpdateApp={setUpdateApp}
+              />
+            }
           />
           <Route
             path="/settings"
             element={
-              <Settings localUser={localUser} setUpdateApp={setUpdateApp} />
+              <Settings
+                localUser={localUser}
+                socket={socket}
+                setUpdateApp={setUpdateApp}
+              />
             }
           />
           <Route
             path="/createserver"
             element={
-              <CreateServer localUser={localUser} setUpdateApp={setUpdateApp} />
+              <CreateServer
+                localUser={localUser}
+                socket={socket}
+                setUpdateApp={setUpdateApp}
+              />
             }
           />
           <Route
             path="/server/:id"
             element={
-              <Server localUser={localUser} setUpdateApp={setUpdateApp} />
+              <Server
+                localUser={localUser}
+                socket={socket}
+                setUpdateApp={setUpdateApp}
+              />
             }
           />
         </>

@@ -17,10 +17,14 @@ const Settings = ({ localUser, setUpdateApp }) => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [isHoveringAvatar, setIsHoveringAvatar] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState(
-    `${import.meta.env.VITE_API_URL}/uploads/images/${localUser.profilePicture}`
+    `${import.meta.env.VITE_API_URL}/${
+      import.meta.env.VITE_API_UPLOAD_FOLDER
+    }/${localUser.profilePicture}`
   );
   const [bannerPreview, setBannerPreview] = useState(
-    `${import.meta.env.VITE_API_URL}/uploads/images/${localUser.customBanner}`
+    `${import.meta.env.VITE_API_URL}/${
+      import.meta.env.VITE_API_UPLOAD_FOLDER
+    }/${localUser.customBanner}`
   );
 
   const dispatch = useDispatch();

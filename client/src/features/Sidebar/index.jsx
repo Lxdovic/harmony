@@ -14,9 +14,9 @@ const index = () => {
           {localUser?.profilePicture ? (
             <div
               style={{
-                backgroundImage: `url(${
-                  import.meta.env.VITE_API_URL
-                }/uploads/images/${localUser.profilePicture})`,
+                backgroundImage: `url(${import.meta.env.VITE_API_URL}/${
+                  import.meta.env.VITE_API_UPLOAD_FOLDER
+                }/${localUser.profilePicture})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -24,7 +24,7 @@ const index = () => {
             ></div>
           ) : (
             <div className="flex w-12 rounded-full overflow-hidden justify-center h-12 bg-rose-500">
-              <img className="self-center h-4/6" src="/logo.svg" />
+              <img className="self-center h-4/6" src="/assets/logo/black.png" />
             </div>
           )}
         </Link>
@@ -48,17 +48,20 @@ const index = () => {
             {server.icon ? (
               <div
                 style={{
-                  backgroundImage: `url(${
-                    import.meta.env.VITE_API_URL
-                  }/uploads/images/${server.icon})`,
+                  backgroundImage: `url(${import.meta.env.VITE_API_URL}/${
+                    import.meta.env.VITE_API_UPLOAD_FOLDER
+                  }/${server.icon})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
                 className="flex w-12 rounded-full overflow-hidden justify-center h-12 bg-rose-500"
               ></div>
             ) : (
-              <div className="flex w-12 rounded-full overflow-hidden justify-center h-12 bg-rose-500">
-                <img className="self-center h-4/6" src="/logo.svg" />
+              <div className="flex w-12 rounded-full overflow-hidden justify-center h-12 bg-zinc-400">
+                <img
+                  className="self-center h-4/6"
+                  src="/assets/logo/black.png"
+                />
               </div>
             )}
           </SidebarItem>

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { whoami } from "../api/auth";
+import { toast } from "react-toastify";
+import { signup } from "../api/auth";
 
 import Input from "../components/ui/Input";
 
@@ -11,12 +12,32 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== passwordConfirm) {
+      return toast.error("Passwords don't match");
+    }
+
+    try {
+      await signup({ email, username, password });
+
+      toast.success("Account created successfully");
+
+      navigate("/signin");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <div className="flex justify-center flex-col gap-10 w-screen h-screen bg-zinc-900">
       <h1 className="self-center font-['Poppins'] uppercase text-white text-4xl">
         Sign up
       </h1>
-      <form className="flex flex-col self-center">
+      <form onSubmit={handleSubmit} className="flex flex-col self-center">
         <Input
           type="email"
           value={email}

@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { whoami } from "./api/auth";
 import { getServers } from "./api/server";
+import { io } from "socket.io-client";
+import { OnSocketEvents } from "./socket";
 
 import Routes from "./routes";
 
@@ -11,6 +13,10 @@ function App() {
   const dispatch = useDispatch();
   const localUser = useSelector((state) => state.localUser);
   const [updateApp, setUpdateApp] = useState(false);
+
+  const socket = io(import.meta.env.VITE_API_URL, {
+    query: { token: localStorage.getItem("accessToken") },
+  });
 
   useEffect(() => {
     getLocalUser();
@@ -39,6 +45,7 @@ function App() {
 
   return (
     <>
+      <OnSocketEvents socket={socket} />
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -49,7 +56,11 @@ function App() {
       />
 
       <BrowserRouter>
-        <Routes localUser={localUser} setUpdateApp={setUpdateApp} />
+        <Routes
+          localUser={localUser}
+          socket={socket}
+          setUpdateApp={setUpdateApp}
+        />
       </BrowserRouter>
     </>
   );

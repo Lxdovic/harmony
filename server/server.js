@@ -8,7 +8,15 @@ const server = http.createServer(app);
 const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
 const { Server } = require("socket.io");
-const io = new Server(server);
+const { iconButtonClasses } = require("@mui/material");
+const { read } = require("fs");
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  },
+  maxHttpBufferSize: 1e8, // 100 MB
+});
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -31,9 +39,16 @@ app.use("/uploads", express.static("uploads"));
 require("./controllers/users/auth.js")(app);
 require("./controllers/users/user.js")(app);
 require("./controllers/servers/server.js")(app);
+require("./controllers/servers/channels.js")(app);
+
+io.use(function (socket, next) {
+  require("./middlewares/socketAccessToken")(socket, next);
+});
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log("a user connected " + socket.id);
+
+  require("./controllers/chat/messages.js")(socket, io);
 });
 
 server.listen(process.env.PORT, () => {

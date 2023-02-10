@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const channelSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
@@ -33,4 +33,4 @@ const channelSchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("Channel", channelSchema);
+module.exports = mongoose.model("Message", messageSchema);

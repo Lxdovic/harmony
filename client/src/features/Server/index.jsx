@@ -1,13 +1,13 @@
 import { Icon } from "@iconify/react";
 
-const index = ({ server, setChannel }) => {
+const index = ({ server, channels, setChannel }) => {
   return (
     <ul className="w-64 bg-[#111113] h-screen">
       <li className="flex items-center p-4 border-zinc-800 border-b-2">
         <h2 className="text-zinc-200 font-semibold">{server?.name}</h2>
       </li>
 
-      {server?.channels.map((channel, index) => (
+      {channels.map((channel, index) => (
         <li
           onClick={() => setChannel(channel)}
           className="flex hover:bg-zinc-900 text-zinc-400 cursor-pointer p-2"

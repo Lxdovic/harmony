@@ -66,20 +66,16 @@ module.exports = (app) => {
 
       if (profilePicture) {
         user.profilePicture &&
-          fs.existsSync(`./uploads/images/` + user.profilePicture) &&
-          fs.unlinkSync(`./uploads/images/` + user.profilePicture);
+          fs.existsSync(`./uploads/` + user.profilePicture) &&
+          fs.unlinkSync(`./uploads/` + user.profilePicture);
 
         const fileName = v4() + "." + profilePicture.name.split(".").pop();
 
-        fs.writeFile(
-          `./uploads/images/` + fileName,
-          profilePicture.data,
-          (err) => {
-            if (err) {
-              console.log(err);
-            }
+        fs.writeFile(`./uploads/` + fileName, profilePicture.data, (err) => {
+          if (err) {
+            console.log(err);
           }
-        );
+        });
 
         await User.findByIdAndUpdate(req.user.id, {
           profilePicture: fileName,
@@ -88,20 +84,16 @@ module.exports = (app) => {
 
       if (customBanner) {
         user.customBanner &&
-          fs.existsSync(`./uploads/images/` + user.customBanner) &&
-          fs.unlinkSync(`./uploads/images/` + user.customBanner);
+          fs.existsSync(`./uploads/` + user.customBanner) &&
+          fs.unlinkSync(`./uploads/` + user.customBanner);
 
         const fileName = v4() + "." + customBanner.name.split(".").pop();
 
-        fs.writeFile(
-          `./uploads/images/` + fileName,
-          customBanner.data,
-          (err) => {
-            if (err) {
-              console.log(err);
-            }
+        fs.writeFile(`./uploads/` + fileName, customBanner.data, (err) => {
+          if (err) {
+            console.log(err);
           }
-        );
+        });
 
         await User.findByIdAndUpdate(req.user.id, {
           customBanner: fileName,

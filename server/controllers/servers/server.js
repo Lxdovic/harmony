@@ -4,6 +4,7 @@ const Channel = require("../../models/Channel");
 const { v4 } = require("uuid");
 const fs = require("fs");
 const accessToken = require("../../middlewares/accessToken");
+const path = require("path");
 
 module.exports = (app, io) => {
   app.post("/api/servers", accessToken, async (req, res) => {
@@ -54,7 +55,7 @@ module.exports = (app, io) => {
     const { id } = req.params;
 
     try {
-      const server = await Server.findById(id).populate("channels");
+      const server = await Server.findById(id).populate("members");
 
       res.json({ server });
     } catch (err) {
